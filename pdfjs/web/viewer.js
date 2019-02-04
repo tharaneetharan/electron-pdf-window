@@ -1789,7 +1789,9 @@ var pdfjsWebLibs;
         var suggestedFilename = '';
           if (url.indexOf('\\') !== -1) {
             try {
-                suggestedFilename = url.substring(url.lastIndexOf('\\')+1);;
+                suggestedFilename = url.substring(url.lastIndexOf('\\')+1);
+                var regPattern = /.*ev-(.*)-.*/;
+                suggestedFilename = suggestedFilename.replace(regPattern, "$1");
             } 
             catch (e) {
             }
