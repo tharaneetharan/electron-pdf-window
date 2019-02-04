@@ -1786,22 +1786,15 @@ var pdfjsWebLibs;
        * @return {String} Guessed PDF file name.
        */
       function getPDFFileNameFromURL(url) {
-        var reURI = /^(?:([^:]+:)?\/\/[^\/]+)?([^?#]*)(\?[^#]*)?(#.*)?$/;
-        //            SCHEME      HOST         1.PATH  2.QUERY   3.REF
-        // Pattern to get last matching NAME.pdf
-        var reFilename = /[^\/?#=]+\.pdf\b(?!.*\.pdf\b)/i;
-        var splitURI = reURI.exec(url);
-        var suggestedFilename = reFilename.exec(splitURI[1]) || reFilename.exec(splitURI[2]) || reFilename.exec(splitURI[3]);
-        if (suggestedFilename) {
-          suggestedFilename = suggestedFilename[0];
-          if (suggestedFilename.indexOf('%') !== -1) {
-            // URL-encoded %2Fpath%2Fto%2Ffile.pdf should be file.pdf
+        var suggestedFilename = '';
+          if (url.indexOf('\\') !== -1) {
             try {
-              suggestedFilename = reFilename.exec(decodeURIComponent(suggestedFilename))[0];
-            } catch (e) {
+                suggestedFilename = url.substring(url.lastIndexOf('\\')+1);;
+            } 
+            catch (e) {
             }
           }
-        }
+        
         return suggestedFilename || 'document.pdf';
       }
       function normalizeWheelEventDelta(evt) {
