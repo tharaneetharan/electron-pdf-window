@@ -1792,6 +1792,7 @@ var pdfjsWebLibs;
                 suggestedFilename = url.substring(url.lastIndexOf('\\')+1);
                 var regPattern = /.*ev-(.*)-.*/;
                 suggestedFilename = suggestedFilename.replace(regPattern, "$1");
+                suggestedFilename = suggestedFilename.replace( /[<>:"\/\\|?*]+/g, '' );
             } 
             catch (e) {
             }
